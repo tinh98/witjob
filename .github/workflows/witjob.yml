@@ -21,13 +21,15 @@ on:
     - lord
 
 jobs:
-  run-exe:
+  run-witjob:
     runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Run run.exe
+        env:
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
           if (!(Test-Path run.exe)) { throw 'run.exe not found' }
-          .\run.exe 
+          .\run.exe
       - uses: EndBug/add-and-commit@v9
