@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Run run.exe
         env:
-          SMTP_PASS: ${{ secrets.SMTP_PASS-ENV }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
           if (!(Test-Path run.exe)) { throw 'run.exe not found' }
           .\run.exe
