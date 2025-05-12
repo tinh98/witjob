@@ -1,0 +1,33 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: witjob
+
+permissions:
+  contents: "write"
+  pull-requests: "write"
+
+on:
+  # run automatically every hour
+  schedule:
+    - cron: "0 * * * *"
+  
+  # allows to manually run the job at any time
+  workflow_dispatch:
+  
+  # run on every push on the master branch
+  push:
+    branches:
+    - lord
+
+jobs:
+  run-exe:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run run.exe
+        run: |
+          if (!(Test-Path run.exe)) { throw 'run.exe not found' }
+          .\run.exe 
+      - uses: EndBug/add-and-commit@v9
